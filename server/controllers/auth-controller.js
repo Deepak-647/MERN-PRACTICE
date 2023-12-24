@@ -9,9 +9,11 @@ const home = async (req, res) => {
 };
 const register = async (req, res) => {
   try {
+    console.log(req.body)
+
     res
     .status(200)
-    .send("Welcome to the Register page using Controller");
+    .json(req.body);
   } catch(error){
     console.log(error);
   }

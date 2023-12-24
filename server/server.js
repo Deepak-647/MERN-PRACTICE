@@ -2,6 +2,8 @@ const express = require("express");
 const app= express();
 const router = require("./router/auth-route")
 
+app.use(express.json()) //This is used to allow express to deal with JSON
+
 app.use("/api/auth",router)
 
 app.get("/",(req,res)=>{
