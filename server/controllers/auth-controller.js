@@ -1,7 +1,5 @@
 const User = require("../models/user-model");
 
-
-
 const home = async (req, res) => {
   try {
     res.status(200).send("Welcome to the page using Controller");
@@ -17,11 +15,13 @@ const register = async (req, res) => {
     if (userExist) {
       return res.status(400).json({ msg: "Email already exist" });
     }
-    
-
 
     const userCreated = await User.create({ username, email, phone, password });
-    res.status(200).json({ msg: userCreated });
+    res.status(200).json({
+      msg: "Registration Successfull",
+      token: await userCreated.generateToken(),
+      userId: userCreated._id.toString(),
+    });
   } catch (error) {
     console.log(error);
   }
