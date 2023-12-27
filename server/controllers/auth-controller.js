@@ -25,6 +25,7 @@ const register = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+
   }
 };
 
@@ -48,7 +49,8 @@ const login = async (req,res) => {
       res.status(401).json({Message : "Invalid email or password"})
     }
   } catch (error) {
-    res.status(500).json("Internal Server Error")
+    // res.status(500).json("Internal Server Error")
+    next(error)
     console.log(error)
   }
 
