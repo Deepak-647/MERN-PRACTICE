@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -8,7 +9,9 @@ const Register = () => {
     phone: "",
     password: "",
   });
-  const navigate= useNavigate()
+  const navigate = useNavigate();
+
+  const {storeTokenInLS} = useAuth();
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -16,37 +19,38 @@ const Register = () => {
 
     setUser({
       ...user,
-      [name]:value,
-    })
+      [name]: value,
+    });
   };
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/register`,{
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify(user)
-    })
-    if(response.ok){
-      setUser({
-        username: "",
-    email: "",
-    phone: "",
-    password: "",
-      })
-      navigate('/login')
-    }
-    console.log(response)
+      const response = await fetch(`http://localhost:5000/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.ok) {
+        const res_data = await response.json();
+        console.log('Res from server',res_data)
+        storeTokenInLS(res_data.token);
+        
+        setUser({
+          username: "",
+          email: "",
+          phone: "",
+          password: "",
+        });
+        navigate("/login");
+      }
+      console.log(response);
     } catch (error) {
-      console.log("registration error",error)
+      console.log("registration error", error);
     }
-    
-    
-
-  }
+  };
   return (
     <div>
       <section>
