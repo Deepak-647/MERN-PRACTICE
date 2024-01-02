@@ -4,9 +4,9 @@ const Services = () => {
   return (
     <div>
       <div>Service</div>
-      <div>
+      <div className="services">
       {courses.map((course, index) => (
-      <div key={index}>
+      <div key={index} className="service">
         <img src="/images/design.png" alt="design" width="200" />
           <div>
             <h1>{course.courseName}</h1>
