@@ -11,7 +11,7 @@ const Register = () => {
   });
   const navigate = useNavigate();
 
-  const {storeTokenInLS} = useAuth();
+  const { storeTokenInLS } = useAuth();
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -33,11 +33,11 @@ const Register = () => {
         },
         body: JSON.stringify(user),
       });
+      const res_data = await response.json();
+      console.log("Res from server", res_data.extraDetails);
       if (response.ok) {
-        const res_data = await response.json();
-        console.log('Res from server',res_data)
         storeTokenInLS(res_data.token);
-        
+
         setUser({
           username: "",
           email: "",
@@ -45,8 +45,9 @@ const Register = () => {
           password: "",
         });
         navigate("/login");
+      } else {
+        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message );
       }
-      console.log(response);
     } catch (error) {
       console.log("registration error", error);
     }

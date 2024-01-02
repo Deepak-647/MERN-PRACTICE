@@ -33,9 +33,9 @@ const Login = () => {
         },
         body: JSON.stringify(user),
       });
+      const res_data = await response.json();
       if (response.ok) {
         alert("Login Successful!")
-        const res_data = await response.json();
         console.log('Res from server',res_data)
         storeTokenInLS(res_data.token);
         
@@ -43,7 +43,7 @@ const Login = () => {
         navigate("/")
 
       }else{
-        alert("Invalid Credentials")
+        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message )
       }
       console.log(response);
     } catch (error) {
