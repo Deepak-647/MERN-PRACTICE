@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -35,7 +36,9 @@ const Login = () => {
       });
       const res_data = await response.json();
       if (response.ok) {
-        alert("Login Successful!")
+        toast.success("Login Successful!",{
+          theme:"dark",
+        })
         console.log('Res from server',res_data)
         storeTokenInLS(res_data.token);
         
@@ -43,7 +46,9 @@ const Login = () => {
         navigate("/")
 
       }else{
-        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message )
+        toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message,{
+          theme: "colored",
+        } )
       }
       console.log(response);
     } catch (error) {
