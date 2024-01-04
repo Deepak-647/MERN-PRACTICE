@@ -32,4 +32,14 @@ try {
    next(error)
 }
 }
-module.exports = {getAllUsers,getAllContacts,deleteUserById};
+
+const getUsersById = async (req,res) => {
+   try {
+      const id = req.params.id;
+      const data = await User.findOne({_id:id},{password :0});
+      return res.status(200).json(data)
+   } catch (error) {
+      nect(error);
+   }
+}
+module.exports = {getAllUsers,getAllContacts,deleteUserById,getUsersById};
