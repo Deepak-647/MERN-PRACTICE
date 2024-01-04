@@ -11,12 +11,33 @@ export const AdminUsers = () =>{
                } 
             });
             const data = await response.json();
-            console.log(data)
+            // console.log(data)
             setUsersData(data);
            
         } catch (error) {
             console.log('Error in Fetching All Users Data')
         }
+    }
+
+    //delete the user 
+    const deleteUser = async (id) =>{
+        try{
+            const response = await fetch(`http://localhost:5000/api/admin/users/delete/${id}`,{
+                method:"DELETE",
+                headers : {
+                    Authorization : authorizationToken
+                }
+            })
+            const data = await response.json();
+            console.log(data)
+            if(response.ok){
+                getAllUsersData();
+            }
+        }catch(error){
+            console.log(error);
+        }
+        
+
     }
     useEffect(()=>{
         getAllUsersData();
@@ -42,7 +63,7 @@ export const AdminUsers = () =>{
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
                     <td>Edit</td>
-                    <td>Delete</td>
+                    <td><button onClick={()=> deleteUser(user._id)}>Delete</button></td>
              
                 </tr>
             ))}
