@@ -11,7 +11,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { AdminLayout } from "./compnents/layouts/Admin-Layout";
 import { AdminUsers } from "./pages/AdminUsers";
 import { AdminContacts } from "./pages/AdminContacts";
-import AdminUpdate from "./pages/AdminUpdate";
+import {AdminUpdate} from "./pages/AdminUpdate";
 
 
 function App() {
