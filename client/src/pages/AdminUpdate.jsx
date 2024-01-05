@@ -45,14 +45,14 @@ export const AdminUpdate = () => {
   //updating data dynamically
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch(
         `http://localhost:5000/api/admin/users/update/${params.id}`,
         {
           method: "PATCH",
           headers: {
-            "Content-Type" : "application/json",
+            "Content-Type": "application/json",
             Authorization: authorizationToken,
           },
           body: JSON.stringify(data),
@@ -60,9 +60,8 @@ export const AdminUpdate = () => {
       );
       if (response.ok) {
         toast.success("User Updated Successfully");
-      }else{
+      } else {
         toast.error("Error in Updating User");
-
       }
     } catch (error) {
       console.log(error);
